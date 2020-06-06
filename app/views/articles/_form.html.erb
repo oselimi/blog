@@ -1,13 +1,46 @@
-<%= form_with model: article,  local: true do |form| %>
-    <p>
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </p>
-    <p>
-      <%= form.label :body %>
-      <%= form.text_area :body %>
-    </p>
-    <p>
-      <%= form.submit button_name %>
-    </p>
-  <% end %>
+<div class="container">
+  <div class="colums is-multiline">
+    <div class="column is-6 is-offset-3">
+       <% if article.errors.any? %>
+        <article class="message is-danger">
+          <div class="message-body">
+            <p><%= pluralize(article.errors.count, "error") %></p>
+            <br>
+            <p>
+              <% article.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </p>
+          </div>
+        </article>
+       <% end %>
+      <div class="content is-size-3">
+        <h1><%= heading %></h1>
+      </div>
+    </div>
+    <div class="column is-6 is-offset-3">
+    <%= form_with model: article,  local: true do |form| %>
+      <div class="field">
+        <%= form.label :title,class: "label" %>
+        <div class="control">
+          <%= form.text_field :title, class: "input", placeholder:"Title" %>
+        </div>
+      </div>
+      <div class="field">
+        <%= form.label :body, class: "label" %>
+        <div class="control">
+          <%= form.text_area :body, class: "textarea", placeholder: "Textarea" %>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <%= form.submit button_name, class: "button is-link"  %>
+        </div>
+      <div class="control">
+        <%= link_to 'Cancel', cancel_path, class: "button is-link is-light" %>
+      </div>
+      </div>
+    <% end %>
+  </div>
+  </div>
+</div>
